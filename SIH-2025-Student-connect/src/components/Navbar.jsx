@@ -15,24 +15,33 @@ export default function Navbar() {
     ? user.name.split(' ').map(s => s[0]).join('').slice(0, 2).toUpperCase()
     : 'G';
 
+  function toggleSidebar() {
+    window.dispatchEvent(new CustomEvent('sidebar:toggle'));
+  }
+
   return (
     <>
-      <div className="row" style={{ gap: 10 }}>
-        <div style={{ fontWeight: 700 }}>Smart Student Hub</div>
-        <span className="chip">v0.1 demo</span>
+      <button className="btn ghost nav-burger" onClick={toggleSidebar} aria-label="Toggle sidebar">☰</button>
+
+      <div className="brand">
+        <div className="brand-mark" />
+        <div>Smart Student Hub</div>
+        <span className="chip info">Demo</span>
       </div>
+
       <div className="search">
         <span role="img" aria-label="search">🔎</span>
         <input placeholder="Search students, posts, complaints, courses..." />
-        <span className="kbd">Ctrl</span> + <span className="kbd">K</span>
+        <span className="kbd">⌘</span><span className="kbd">K</span>
       </div>
+
       <div className="row">
         {user ? (
           <>
             <span className="chip">
               {user.role === 'student' ? 'Student' : user.role === 'faculty' ? 'Faculty' : 'Admin'}
             </span>
-            <div style={{ width: 34, height: 34, borderRadius: 999, background: '#2563eb', color: 'white', display: 'grid', placeItems: 'center' }}>
+            <div style={{ width: 34, height: 34, borderRadius: 999, background: 'var(--primary)', color: 'white', display: 'grid', placeItems: 'center' }}>
               <span style={{ fontSize: 14, fontWeight: 700 }}>{initials}</span>
             </div>
             <button className="btn ghost" onClick={() => navigate(user.role === 'student' ? '/student' : '/admin')}>My Dashboard</button>
