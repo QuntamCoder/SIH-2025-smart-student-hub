@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 const canned = [
   { q: /resume|cv|portfolio/i, a: 'Tip: Highlight measurable impact in your projects. Use STAR format: Situation, Task, Action, Result.' },
@@ -37,12 +37,22 @@ export default function AIAssistant() {
       <div className="card">
         <div style={{ fontWeight: 700, marginBottom: 10 }}>Ask AI Mentor</div>
         <div className="row">
-          <input className="input" placeholder="Ask about courses, careers, or study topics..." value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === 'Enter' ? ask() : null} />
+          <input
+            className="input"
+            placeholder="Ask about courses, careers, or study topics..."
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' ? ask() : null}
+          />
           <button className="btn" onClick={ask}>Ask</button>
         </div>
         <div style={{ marginTop: 12, display: 'grid', gap: 8 }}>
           {history.map((m, i) => (
-            <div key={i} className="card" style={{ background: m.role === 'ai' ? '#0b1220' : 'transparent' }}>
+            <div
+              key={i}
+              className="card"
+              style={{ background: m.role === 'ai' ? 'var(--surface-2)' : 'transparent' }}
+            >
               <div className="muted" style={{ fontSize: 12 }}>{m.role === 'ai' ? 'AI' : 'You'}</div>
               <div>{m.text}</div>
             </div>
