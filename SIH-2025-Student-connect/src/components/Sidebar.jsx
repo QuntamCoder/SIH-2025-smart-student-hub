@@ -1,17 +1,28 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-
-const links = [
-  { to: '/', label: 'Dashboard', icon: '📊' },
-  { to: '/profile', label: 'Profile & Portfolio', icon: '🧑‍🎓' },
-  { to: '/attendance', label: 'Attendance', icon: '🕒' },
-  { to: '/complaints', label: 'Complaints', icon: '🧰' },
-  { to: '/feed', label: 'Social Feed', icon: '🗞️' },
-  { to: '/ai', label: 'AI Assistant', icon: '🤖' },
-  { to: '/admin', label: 'Faculty/Admin', icon: '🛠️' },
-  { to: '/gamification', label: 'Gamification', icon: '🏆' },
-];
+import { useAuth } from '../auth/AuthContext.jsx';
 
 export default function Sidebar() {
+  const { user } = useAuth();
+
+  const studentLinks = [
+    { to: '/student', label: 'Dashboard', icon: '📊' },
+    { to: '/profile', label: 'Profile & Portfolio', icon: '🧑‍🎓' },
+    { to: '/attendance', label: 'Attendance', icon: '🕒' },
+    { to: '/complaints', label: 'Complaints', icon: '🧰' },
+    { to: '/feed', label: 'Social Feed', icon: '🗞️' },
+    { to: '/ai', label: 'AI Assistant', icon: '🤖' },
+    { to: '/gamification', label: 'Gamification', icon: '🏆' },
+  ];
+
+  const facultyLinks = [
+    { to: '/admin', label: 'Dashboard', icon: '📊' },
+    { to: '/feed', label: 'Social Feed', icon: '🗞️' },
+    { to: '/ai', label: 'AI Assistant', icon: '🤖' },
+  ];
+
+  const links = user?.role === 'student' ? studentLinks : facultyLinks;
+
   return (
     <div style={{ padding: 12 }}>
       <div style={{ padding: 12, marginBottom: 12, fontWeight: 700 }}>SSH</div>
